@@ -3,6 +3,7 @@ import { api } from './api.js';
 import Login from './Login.jsx';
 import Dashboard from './Dashboard.jsx';
 import Sidebar from './Sidebar.jsx';
+import Reglas from './Reglas.jsx';
 
 function ReservasView() {
   const [reservations, setReservations] = useState([]);
@@ -116,7 +117,9 @@ function App() {
             <button onClick={logout} className="btn-logout">Salir</button>
           </div>
         </header>
-        {vista === 'dashboard' ? <Dashboard /> : <ReservasView />}
+        {vista === 'dashboard' && <Dashboard />}
+        {vista === 'reservas'  && <ReservasView />}
+        {vista === 'reglas'    && <Reglas />}
       </div>
     </div>
   );

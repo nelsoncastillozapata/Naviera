@@ -183,6 +183,89 @@ body {
   color: #94a3b8;
 }
 
+/* Reporte de reglas */
+.reglas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.regla-card {
+  background: white;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 1px 4px rgba(15,23,42,0.07);
+}
+
+.regla-card-header {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding-left: 14px;
+  margin-bottom: 18px;
+}
+
+.regla-card-icono { font-size: 1.6rem; flex-shrink: 0; }
+
+.regla-card-header h3 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+  color: #1e293b;
+}
+
+.regla-card-header p {
+  margin: 0;
+  font-size: 0.83rem;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+.regla-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.87rem;
+}
+
+.regla-table th {
+  background: #f8fafc;
+  padding: 8px 12px;
+  text-align: left;
+  font-weight: 600;
+  color: #475569;
+  border-bottom: 2px solid #e2e8f0;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.regla-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #1e293b;
+}
+
+.regla-table tbody tr:last-child td { border-bottom: none; }
+.regla-table tbody tr:hover td { background: #f8fafc; }
+
+.regla-nota {
+  margin-top: 14px;
+  padding: 10px 14px;
+  background: #fefce8;
+  border-left: 3px solid #f59e0b;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  color: #78350f;
+}
+
+.regla-footer {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  text-align: right;
+  padding-top: 8px;
+  border-top: 1px solid #e2e8f0;
+}
+
 header h1 {
   margin: 0 0 8px;
   font-size: 2rem;
