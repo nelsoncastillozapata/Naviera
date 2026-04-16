@@ -1,75 +1,49 @@
 import { useEffect, useState } from 'react';
 import { api } from './api.js';
 import Login from './Login.jsx';
+import Dashboard from './Dashboard.jsx';
 
-function App() {
-  const [user, setUser] = useState(() => {
-    const stored = localStorage.getItem('user');
-    return stored ? JSON.parse(stored) : null;
-  });
+function ReservasView() {
   const [reservations, setReservations] = useState([]);
   const [search, setSearch] = useState('');
   const [estado, setEstado] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    setUser(null);
-    setReservations([]);
-  };
-
-  const loadReservations = async () => {
+  const load = async () => {
     setLoading(true);
     try {
       const params = {};
       if (search) params.search = search;
       if (estado) params.estado = estado;
-      const response = await api.get('/reservations', { params });
-      setReservations(response.data);
-    } catch (error) {
-      console.error('Error cargando reservas', error);
+      const r = await api.get('/reservations', { params });
+      setReservations(r.data);
+    } catch {
       setReservations([]);
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    if (user) loadReservations();
-  }, [user]);
-
-  if (!user) return <Login onLogin={setUser} />;
+  useEffect(() => { load(); }, []);
 
   return (
-    <div className="app-shell">
-      <header>
-        <div>
-          <h1>SaaS de Gestión Naviera</h1>
-          <p>Dashboard de reservas de transporte marítimo</p>
-        </div>
-        <div className="header-user">
-          <span>Hola, {user.nombre}</span>
-          <button onClick={logout} className="btn-logout">Salir</button>
-        </div>
-      </header>
-
+    <>
       <section className="filters">
         <input
           type="text"
           placeholder="Buscar por cliente, ruta o reserva"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && loadReservations()}
+          onKeyDown={(e) => e.key === 'Enter' && load()}
         />
         <input
           type="text"
           placeholder="Filtrar por estado"
           value={estado}
           onChange={(e) => setEstado(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && loadReservations()}
+          onKeyDown={(e) => e.key === 'Enter' && load()}
         />
-        <button onClick={loadReservations}>Buscar</button>
+        <button onClick={load}>Buscar</button>
       </section>
 
       {loading ? (
@@ -78,36 +52,67 @@ function App() {
         <table>
           <thead>
             <tr>
-              <th>Reserva</th>
-              <th>Cliente</th>
-              <th>Estado</th>
-              <th>Fecha creación</th>
-              <th>Ruta</th>
-              <th>Nave</th>
-              <th>Total</th>
-              <th>Pagado</th>
+              <th>Reserva</th><th>Cliente</th><th>Estado</th>
+              <th>Fecha</th><th>Ruta</th><th>Nave</th>
+              <th>Total</th><th>Pagado</th>
             </tr>
           </thead>
           <tbody>
             {reservations.length === 0 ? (
-              <tr><td colSpan="8">No hay datos disponibles.</td></tr>
-            ) : (
-              reservations.map((item) => (
-                <tr key={item._id}>
-                  <td>{item.numeroReserva}</td>
-                  <td>{item.clienteNombre}</td>
-                  <td><span className={`badge badge-${item.estadoReserva?.toLowerCase()}`}>{item.estadoReserva}</span></td>
-                  <td>{item.fechaCreacion}</td>
-                  <td>{item.ruta}</td>
-                  <td>{item.nave}</td>
-                  <td>{item.totalReserva?.toLocaleString('es-CL') || '0'}</td>
-                  <td>{item.totalPagado?.toLocaleString('es-CL') || '0'}</td>
-                </tr>
-              ))
-            )}
+              <tr><td colSpan="8">No hay datos.</td></tr>
+            ) : reservations.map((item) => (
+              <tr key={item._id}>
+                <td>{item.numeroReserva}</td>
+                <td>{item.clienteNombre}</td>
+                <td><span className={`badge badge-${item.estadoReserva?.toLowerCase()}`}>{item.estadoReserva}</span></td>
+                <td>{item.fechaCreacion}</td>
+                <td>{item.ruta}</td>
+                <td>{item.nave}</td>
+                <td>{item.totalReserva?.toLocaleString('es-CL') || '0'}</td>
+                <td>{item.totalPagado?.toLocaleString('es-CL') || '0'}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       )}
+    </>
+  );
+}
+
+function App() {
+  const [user, setUser] = useState(() => {
+    const s = localStorage.getItem('user');
+    return s ? JSON.parse(s) : null;
+  });
+  const [vista, setVista] = useState('dashboard');
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setUser(null);
+  };
+
+  if (!user) return <Login onLogin={setUser} />;
+
+  return (
+    <div className="app-shell">
+      <header>
+        <div>
+          <h1>SaaS de Gestión Naviera</h1>
+          <p>Transporte marítimo · Magallanes</p>
+        </div>
+        <div className="header-user">
+          <span>Hola, {user.nombre}</span>
+          <button onClick={logout} className="btn-logout">Salir</button>
+        </div>
+      </header>
+
+      <nav className="main-nav">
+        <button className={vista === 'dashboard' ? 'active' : ''} onClick={() => setVista('dashboard')}>Dashboard</button>
+        <button className={vista === 'reservas'  ? 'active' : ''} onClick={() => setVista('reservas')}>Reservas</button>
+      </nav>
+
+      {vista === 'dashboard' ? <Dashboard /> : <ReservasView />}
     </div>
   );
 }
