@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { connectDB } from './config/db.js';
 import reservationsRouter from './routes/reservations.js';
+import authRouter from './routes/auth.js';
 
 dotenv.config();
 
@@ -12,6 +13,7 @@ const port = process.env.PORT || 4000;
 app.use(cors());
 app.use(express.json());
 
+app.use('/api/auth', authRouter);
 app.use('/api/reservations', reservationsRouter);
 
 app.get('/', (req, res) => {

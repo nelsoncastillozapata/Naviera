@@ -1,11 +1,23 @@
 import { useEffect, useState } from 'react';
 import { api } from './api.js';
+import Login from './Login.jsx';
 
 function App() {
+  const [user, setUser] = useState(() => {
+    const stored = localStorage.getItem('user');
+    return stored ? JSON.parse(stored) : null;
+  });
   const [reservations, setReservations] = useState([]);
   const [search, setSearch] = useState('');
   const [estado, setEstado] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setUser(null);
+    setReservations([]);
+  };
 
   const loadReservations = async () => {
     setLoading(true);
@@ -24,14 +36,22 @@ function App() {
   };
 
   useEffect(() => {
-    loadReservations();
-  }, []);
+    if (user) loadReservations();
+  }, [user]);
+
+  if (!user) return <Login onLogin={setUser} />;
 
   return (
     <div className="app-shell">
       <header>
-        <h1>SaaS de Gestión Naviera</h1>
-        <p>Dashboard inicial con datos de reservas cargados desde el CSV.</p>
+        <div>
+          <h1>SaaS de Gestión Naviera</h1>
+          <p>Dashboard de reservas de transporte marítimo</p>
+        </div>
+        <div className="header-user">
+          <span>Hola, {user.nombre}</span>
+          <button onClick={logout} className="btn-logout">Salir</button>
+        </div>
       </header>
 
       <section className="filters">
@@ -39,13 +59,15 @@ function App() {
           type="text"
           placeholder="Buscar por cliente, ruta o reserva"
           value={search}
-          onChange={(event) => setSearch(event.target.value)}
+          onChange={(e) => setSearch(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && loadReservations()}
         />
         <input
           type="text"
           placeholder="Filtrar por estado"
           value={estado}
-          onChange={(event) => setEstado(event.target.value)}
+          onChange={(e) => setEstado(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && loadReservations()}
         />
         <button onClick={loadReservations}>Buscar</button>
       </section>
@@ -68,20 +90,18 @@ function App() {
           </thead>
           <tbody>
             {reservations.length === 0 ? (
-              <tr>
-                <td colSpan="8">No hay datos disponibles.</td>
-              </tr>
+              <tr><td colSpan="8">No hay datos disponibles.</td></tr>
             ) : (
               reservations.map((item) => (
                 <tr key={item._id}>
                   <td>{item.numeroReserva}</td>
                   <td>{item.clienteNombre}</td>
-                  <td>{item.estadoReserva}</td>
+                  <td><span className={`badge badge-${item.estadoReserva?.toLowerCase()}`}>{item.estadoReserva}</span></td>
                   <td>{item.fechaCreacion}</td>
                   <td>{item.ruta}</td>
                   <td>{item.nave}</td>
-                  <td>{item.totalReserva?.toLocaleString() || '0'}</td>
-                  <td>{item.totalPagado?.toLocaleString() || '0'}</td>
+                  <td>{item.totalReserva?.toLocaleString('es-CL') || '0'}</td>
+                  <td>{item.totalPagado?.toLocaleString('es-CL') || '0'}</td>
                 </tr>
               ))
             )}
