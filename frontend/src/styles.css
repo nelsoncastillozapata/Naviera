@@ -1,0 +1,80 @@
+:root {
+  color-scheme: light;
+  font-family: Inter, system-ui, sans-serif;
+  background: #f7fafc;
+  color: #1f2937;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #eef2ff;
+}
+
+.app-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+header h1 {
+  margin: 0 0 8px;
+  font-size: 2rem;
+}
+
+header p {
+  margin: 0 0 24px;
+  color: #475569;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.filters input {
+  flex: 1;
+  min-width: 220px;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+}
+
+.filters button {
+  padding: 10px 20px;
+  border: none;
+  background: #4338ca;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
+}
+
+thead {
+  background: #eef2ff;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 14px 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+tbody tr:hover {
+  background: #f8fafc;
+}
+
+.message {
+  padding: 24px;
+  border-radius: 16px;
+  background: #e2e8f0;
+}
