@@ -5,6 +5,7 @@ import { connectDB } from './config/db.js';
 import reservationsRouter from './routes/reservations.js';
 import authRouter from './routes/auth.js';
 import dashboardRouter from './routes/dashboard.js';
+import tarifasRouter from './routes/tarifas.js';
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 
 app.use('/api/auth', authRouter);
 app.use('/api/dashboard', dashboardRouter);
+app.use('/api/tarifas', tarifasRouter);
 app.use('/api/reservations', reservationsRouter);
 
 app.get('/', (req, res) => {
