@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { api } from './api.js';
 import Login from './Login.jsx';
 import Dashboard from './Dashboard.jsx';
+import Sidebar from './Sidebar.jsx';
 
 function ReservasView() {
   const [reservations, setReservations] = useState([]);
@@ -28,6 +29,7 @@ function ReservasView() {
 
   return (
     <>
+      <h2 className="section-title">Reservas</h2>
       <section className="filters">
         <input
           type="text"
@@ -85,6 +87,7 @@ function App() {
     return s ? JSON.parse(s) : null;
   });
   const [vista, setVista] = useState('dashboard');
+  const [collapsed, setCollapsed] = useState(false);
 
   const logout = () => {
     localStorage.removeItem('token');
@@ -95,24 +98,26 @@ function App() {
   if (!user) return <Login onLogin={setUser} />;
 
   return (
-    <div className="app-shell">
-      <header>
-        <div>
-          <h1>SaaS de Gestión Naviera</h1>
-          <p>Transporte marítimo · Magallanes</p>
-        </div>
-        <div className="header-user">
-          <span>Hola, {user.nombre}</span>
-          <button onClick={logout} className="btn-logout">Salir</button>
-        </div>
-      </header>
-
-      <nav className="main-nav">
-        <button className={vista === 'dashboard' ? 'active' : ''} onClick={() => setVista('dashboard')}>Dashboard</button>
-        <button className={vista === 'reservas'  ? 'active' : ''} onClick={() => setVista('reservas')}>Reservas</button>
-      </nav>
-
-      {vista === 'dashboard' ? <Dashboard /> : <ReservasView />}
+    <div className="layout">
+      <Sidebar
+        collapsed={collapsed}
+        onToggle={() => setCollapsed(!collapsed)}
+        vista={vista}
+        onVista={setVista}
+      />
+      <div className="layout-main">
+        <header>
+          <div>
+            <h1>SaaS de Gestión Naviera</h1>
+            <p>Transporte marítimo · Magallanes</p>
+          </div>
+          <div className="header-user">
+            <span>Hola, {user.nombre}</span>
+            <button onClick={logout} className="btn-logout">Salir</button>
+          </div>
+        </header>
+        {vista === 'dashboard' ? <Dashboard /> : <ReservasView />}
+      </div>
     </div>
   );
 }
