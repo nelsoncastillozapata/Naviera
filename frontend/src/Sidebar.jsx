@@ -3,7 +3,8 @@ const NAV = [
   { id: 'reservas',  icono: '📋', label: 'Reservas'  },
   { id: 'tarifas',          icono: '💰', label: 'Tarifas'          },
   { id: 'tarifas-aplicadas',  icono: '🔍', label: 'Tarifas aplicadas'  },
-  { id: 'analisis-recargos', icono: '📈', label: 'Análisis recargos'  },
+  { id: 'analisis-recargos',    icono: '📈', label: 'Análisis recargos'    },
+  { id: 'analisis-descuentos', icono: '🏷️', label: 'Análisis descuentos'  },
   { id: 'reglas',    icono: '📜', label: 'Reglas'     },
 ];
 
