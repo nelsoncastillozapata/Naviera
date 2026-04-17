@@ -5,6 +5,7 @@ import Dashboard from './Dashboard.jsx';
 import Sidebar from './Sidebar.jsx';
 import Reglas from './Reglas.jsx';
 import Tarifas from './Tarifas.jsx';
+import TarifasAplicadas from './TarifasAplicadas.jsx';
 
 function ReservasView() {
   const [reservations, setReservations] = useState([]);
@@ -120,7 +121,8 @@ function App() {
         </header>
         {vista === 'dashboard' && <Dashboard />}
         {vista === 'reservas'  && <ReservasView />}
-        {vista === 'tarifas'   && <Tarifas />}
+        {vista === 'tarifas'            && <Tarifas />}
+        {vista === 'tarifas-aplicadas'  && <TarifasAplicadas />}
         {vista === 'reglas'    && <Reglas />}
       </div>
     </div>

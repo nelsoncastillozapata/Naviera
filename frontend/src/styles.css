@@ -436,6 +436,26 @@ tbody tr:hover {
   border: 2px dashed #e2e8f0;
 }
 
+/* Tarifas Aplicadas */
+.ta-table .ta-separator td {
+  background: #f8fafc;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  padding: 6px 12px;
+  border-top: 2px solid #e2e8f0;
+}
+
+.ta-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
 /* Login */
 .login-bg {
   min-height: 100vh;

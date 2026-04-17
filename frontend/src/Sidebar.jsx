@@ -1,7 +1,8 @@
 const NAV = [
   { id: 'dashboard', icono: '📊', label: 'Dashboard' },
   { id: 'reservas',  icono: '📋', label: 'Reservas'  },
-  { id: 'tarifas',   icono: '💰', label: 'Tarifas'    },
+  { id: 'tarifas',          icono: '💰', label: 'Tarifas'          },
+  { id: 'tarifas-aplicadas', icono: '🔍', label: 'Tarifas aplicadas' },
   { id: 'reglas',    icono: '📜', label: 'Reglas'     },
 ];
 
