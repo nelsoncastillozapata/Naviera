@@ -8,6 +8,8 @@ import Tarifas from './Tarifas.jsx';
 import TarifasAplicadas from './TarifasAplicadas.jsx';
 import AnalisisRecargos from './AnalisisRecargos.jsx';
 import AnalisisDescuentos from './AnalisisDescuentos.jsx';
+import Kpis from './Kpis.jsx';
+import Informe from './Informe.jsx';
 
 function ReservasView() {
   const [reservations, setReservations] = useState([]);
@@ -128,6 +130,8 @@ function App() {
         {vista === 'analisis-recargos'    && <AnalisisRecargos />}
         {vista === 'analisis-descuentos' && <AnalisisDescuentos />}
         {vista === 'reglas'    && <Reglas />}
+        {vista === 'kpis'     && <Kpis />}
+        {vista === 'informe'  && <Informe />}
       </div>
     </div>
   );

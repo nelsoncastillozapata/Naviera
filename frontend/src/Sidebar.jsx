@@ -6,6 +6,8 @@ const NAV = [
   { id: 'analisis-recargos',    icono: '📈', label: 'Análisis recargos'    },
   { id: 'analisis-descuentos', icono: '🏷️', label: 'Análisis descuentos'  },
   { id: 'reglas',    icono: '📜', label: 'Reglas'     },
+  { id: 'kpis',     icono: '🎯', label: 'KPIs'        },
+  { id: 'informe',  icono: '📄', label: 'Informe de análisis' },
 ];
 
 function Sidebar({ collapsed, onToggle, vista, onVista }) {

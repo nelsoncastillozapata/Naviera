@@ -11,6 +11,10 @@ body {
   background: #eef2ff;
 }
 
+body:has(.login-bg) {
+  background: transparent;
+}
+
 /* Layout con sidebar */
 .layout {
   display: flex;
@@ -39,6 +43,9 @@ body {
   flex-direction: column;
   transition: width 0.25s ease, min-width 0.25s ease;
   overflow: hidden;
+  height: 100vh;
+  position: sticky;
+  top: 0;
 }
 
 .sidebar--collapsed {
@@ -85,6 +92,8 @@ body {
   flex-direction: column;
   gap: 4px;
   border-bottom: 1px solid rgba(255,255,255,0.08);
+  overflow-y: auto;
+  flex: 1;
 }
 
 .sidebar-nav-item {
@@ -458,15 +467,34 @@ tbody tr:hover {
 
 /* Login */
 .login-bg {
-  min-height: 100vh;
+  position: fixed;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #1e1b4b 0%, #3730a3 100%);
+  overflow: hidden;
+  background: linear-gradient(160deg, #0c1445 0%, #0e3460 40%, #0a4a6e 70%, #0d2d5a 100%);
+}
+
+.login-scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.login-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(8,16,50,0.45) 0%, rgba(8,36,70,0.3) 100%);
+  z-index: 1;
 }
 
 .login-card {
-  background: white;
+  position: relative;
+  z-index: 2;
+  background: rgba(255,255,255,0.97);
   border-radius: 20px;
   padding: 40px 36px;
   width: 100%;
@@ -673,7 +701,7 @@ header {
 /* KPI Grid */
 .kpi-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 16px;
   margin-bottom: 24px;
 }
@@ -681,15 +709,19 @@ header {
 .kpi-card {
   background: white;
   border-radius: 14px;
-  padding: 20px;
+  padding: 20px 22px;
   box-shadow: 0 1px 4px rgba(15,23,42,0.07);
+  min-width: 0;
 }
 
 .kpi-value {
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: #1e293b;
   margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .kpi-label {
