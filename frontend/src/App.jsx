@@ -6,6 +6,7 @@ import Sidebar from './Sidebar.jsx';
 import Reglas from './Reglas.jsx';
 import Tarifas from './Tarifas.jsx';
 import TarifasAplicadas from './TarifasAplicadas.jsx';
+import AnalisisRecargos from './AnalisisRecargos.jsx';
 
 function ReservasView() {
   const [reservations, setReservations] = useState([]);
@@ -123,6 +124,7 @@ function App() {
         {vista === 'reservas'  && <ReservasView />}
         {vista === 'tarifas'            && <Tarifas />}
         {vista === 'tarifas-aplicadas'  && <TarifasAplicadas />}
+        {vista === 'analisis-recargos' && <AnalisisRecargos />}
         {vista === 'reglas'    && <Reglas />}
       </div>
     </div>

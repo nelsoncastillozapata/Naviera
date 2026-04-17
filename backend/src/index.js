@@ -7,6 +7,7 @@ import authRouter from './routes/auth.js';
 import dashboardRouter from './routes/dashboard.js';
 import tarifasRouter from './routes/tarifas.js';
 import tarifasAplicadasRouter from './routes/tarifas-aplicadas.js';
+import analisisRecargosRouter from './routes/analisis-recargos.js';
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/dashboard', dashboardRouter);
 app.use('/api/tarifas', tarifasRouter);
 app.use('/api/tarifas-aplicadas', tarifasAplicadasRouter);
+app.use('/api/analisis-recargos', analisisRecargosRouter);
 app.use('/api/reservations', reservationsRouter);
 
 app.get('/', (req, res) => {
